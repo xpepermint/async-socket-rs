@@ -1,9 +1,9 @@
 //! This crate implements a general-purpose asynchronous socket.
 //! 
-//! The `AsyncSocket` implements [AsyncRead], [AsyncWrite], [Stream] and [Clone]
-//! traits and thus mimic the functionality and the behaviour of the [TcpStream]
-//! or [UnixStream]. These propertis makes it a perfect tool for testing network
-//! activities and events.
+//! The `Socket` implements [AsyncRead], [AsyncWrite], [Stream] and [Clone]
+//! traits and thus mimics the functionality and the behaviour of the
+//! [TcpStream] and [UnixStream] objects. These propertis makes it a perfect
+//! tool for testing network activities and events.
 //! 
 //! ### Usage
 //! 
@@ -36,8 +36,8 @@
 //! [TcpStream]: https://docs.rs/async-std/latest/async_std/net/struct.TcpStream.html 
 //! [UnixStream]: https://docs.rs/async-std/latest/async_std/os/unix/net/struct.UnixStream.html
 //! 
-//! [![Documentation](https://img.shields.io/badge/-Documentation-blue?style=for-the-badge&logo=Rust)](https://docs.rs/httlib-protos)
-//! [![Source](https://img.shields.io/badge/-Source-lightgrey?style=for-the-badge&logo=GitHub)](https://github.com/xpepermint/httlib-rs/tree/main/protos)
+//! [![Documentation](https://img.shields.io/badge/-Documentation-blue?style=for-the-badge&logo=Rust)](https://docs.rs/async-socket)
+//! [![Source](https://img.shields.io/badge/-Source-lightgrey?style=for-the-badge&logo=GitHub)](https://github.com/xpepermint/async-socket-rs)
 mod socket;
 mod state;
 
