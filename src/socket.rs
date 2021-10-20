@@ -45,11 +45,16 @@ impl AsyncRead for Socket {
     fn poll_read(self: Pin<&mut Self>, cx: &mut Context, buf: &mut [u8]) -> Poll<std::io::Result<usize>> {
         match Pin::new(&mut self.state.lock()).poll(cx) {
             Poll::Ready(mut state) => {
-                let size = state.buf.len();
-                let data = state.buf.drain(0..size).as_slice().to_vec();
-                let size = data.len();
-                buf[..size].copy_from_slice(&data);
-                Poll::Ready(Ok(state.buf.len()))
+
+                let dsize = state.buf.len();
+                let bsize = buf.len();
+                if dsize < bsize {
+                    return Poll::Pending;
+                }
+
+                let data = state.buf.drain(0..bsize).as_slice().to_vec();
+                buf[..bsize].copy_from_slice(&data);
+                Poll::Ready(Ok(bsize))
             },
             Poll::Pending => {
                 Poll::Pending

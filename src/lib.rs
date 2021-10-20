@@ -48,12 +48,11 @@ pub use state::*;
 mod tests {
     use super::*;
     use async_std::task::spawn;
-    use futures::io::AsyncWriteExt;
+    use futures::io::{AsyncWriteExt, AsyncReadExt};
     use futures::stream::StreamExt;
 
     #[async_std::test]
-    async fn performs_common_tasks() {
-
+    async fn writes_and_streams() {
         let mut stream = Socket::default();
         let mut writer = stream.clone();
 
@@ -62,8 +61,6 @@ mod tests {
             writer.write(b" ").await.unwrap();
             writer.write(b"World!").await.unwrap();
         });
-
-        
 
         let mut data = vec![];
         while let Some(mut chunk) = stream.next().await {
@@ -75,5 +72,18 @@ mod tests {
         }
 
         assert_eq!(data, b"Hello World!");
+    }
+
+    #[async_std::test]
+    async fn writes_and_reads() {
+        let mut stream = Socket::default();
+
+        stream.write(b"Hello").await.unwrap();
+
+        let mut buf = vec![0u8; 2];
+        let size = stream.read(&mut buf).await.unwrap();
+
+        assert_eq!(buf, b"He");
+        assert_eq!(size, 2);
     }
 }
