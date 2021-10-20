@@ -1,0 +1,19 @@
+[package]
+name = "async-socket"
+description = "General-purpose asynchronous socket stream."
+license = "MIT"
+version = "0.1.0"
+authors = ["Kristijan Sedlak <xpepermint@gmail.com>"]
+edition = "2018"
+documentation = "https://docs.rs/async-socket"
+homepage = "https://github.com/xpepermint/async-socket-rs/"
+repository = "https://github.com/xpepermint/async-socket-rs"
+keywords = ["async", "socket", "read", "write", "clone"]
+categories = ["network-programming", "asynchronous"]
+readme = "README.md"
+
+[dependencies]
+futures = { version = "0.3.17" }
+
+[dev-dependencies]
+async-std = { version = "1.10.0", features = ["unstable", "attributes"] }
