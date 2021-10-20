@@ -45,7 +45,8 @@ impl AsyncRead for Socket {
     fn poll_read(self: Pin<&mut Self>, cx: &mut Context, buf: &mut [u8]) -> Poll<std::io::Result<usize>> {
         match Pin::new(&mut self.state.lock()).poll(cx) {
             Poll::Ready(mut state) => {
-
+                state.waker = Some(cx.waker().clone());
+                
                 let dsize = state.buf.len();
                 let bsize = buf.len();
                 if dsize < bsize {
